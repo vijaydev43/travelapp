@@ -95,21 +95,25 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
-                                    scname,
-                                    textScaleFactor:
-                                        scname.contains('Enter Source')
-                                            ? 1.1
-                                            : 1.4,
-                                    style: TextStyle(
-                                      color: scname.contains('Enter Source')
-                                          ? Colors.grey
-                                          : Colors.black,
-                                      fontFamily: 'poppins',
-                                      fontWeight:
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.4,
+                                    child: Text(
+                                      scname,
+                                      textScaleFactor:
                                           scname.contains('Enter Source')
-                                              ? FontWeight.normal
-                                              : FontWeight.bold,
+                                              ? 1.1
+                                              : 1.4,
+                                      style: TextStyle(
+                                        color: scname.contains('Enter Source')
+                                            ? Colors.grey
+                                            : Colors.black,
+                                        fontFamily: 'poppins',
+                                        fontWeight:
+                                            scname.contains('Enter Source')
+                                                ? FontWeight.normal
+                                                : FontWeight.bold,
+                                      ),
                                     ),
                                   )
                                 ],
@@ -152,22 +156,26 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
-                                    dsname,
-                                    textScaleFactor:
-                                        dsname.contains('Enter Destination')
-                                            ? 1.1
-                                            : 1.4,
-                                    style: TextStyle(
-                                      color:
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.4,
+                                    child: Text(
+                                      dsname,
+                                      textScaleFactor:
                                           dsname.contains('Enter Destination')
-                                              ? Colors.grey
-                                              : Colors.black,
-                                      fontFamily: 'poppinr',
-                                      fontWeight:
-                                          dsname.contains('Enter Destination')
-                                              ? FontWeight.normal
-                                              : FontWeight.bold,
+                                              ? 1.1
+                                              : 1.4,
+                                      style: TextStyle(
+                                        color:
+                                            dsname.contains('Enter Destination')
+                                                ? Colors.grey
+                                                : Colors.black,
+                                        fontFamily: 'poppinr',
+                                        fontWeight:
+                                            dsname.contains('Enter Destination')
+                                                ? FontWeight.normal
+                                                : FontWeight.bold,
+                                      ),
                                     ),
                                   )
                                 ],

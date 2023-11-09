@@ -23,6 +23,7 @@ class _SourceState extends State<Source> {
     super.initState();
   }
 
+  TextEditingController txt = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,25 +49,42 @@ class _SourceState extends State<Source> {
                 ),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(right: 20),
+                    margin: const EdgeInsets.only(
+                      right: 20,
+                    ),
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                    ),
                     child: TextField(
+                      controller: txt,
+                      onChanged: (value) {
+                        setState(() {
+                          txt.text = value;
+                        });
+                      },
                       style:
-                          const TextStyle(fontSize: 20, fontFamily: 'poppinsm'),
+                          const TextStyle(fontSize: 18, fontFamily: 'poppinsm'),
                       decoration: InputDecoration(
                         hintText: widget.feldname,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.white,
+                            ),
+                            borderRadius: BorderRadius.circular(13)),
                         hintStyle: const TextStyle(
                           fontFamily: 'poppinsm',
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
+                          horizontal: 15,
+                        ),
                         fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(
                           borderSide: const BorderSide(
                             color: Colors.white,
                           ),
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(13),
                         ),
                       ),
                     ),
@@ -104,18 +122,32 @@ class _SourceState extends State<Source> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          ListTile(
-                            onTap: () {
-                              Navigator.pop(context, {
-                                'id': snapshot.data![index].id,
-                                'name': snapshot.data![index].name,
-                              });
-                            },
-                            title: Text(snapshot.data![index].name),
-                          ),
-                          const Divider(
-                            height: 1,
-                            indent: 15,
+                          Visibility(
+                            visible: snapshot.data![index].name
+                                    .toLowerCase()
+                                    .startsWith(txt.text.toLowerCase()) ||
+                                snapshot.data![index].name
+                                    .toUpperCase()
+                                    .startsWith(txt.text.toUpperCase()),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context, {
+                                  'id': snapshot.data![index].id,
+                                  'name': snapshot.data![index].name,
+                                });
+                              },
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text(snapshot.data![index].name),
+                                  ),
+                                  const Divider(
+                                    height: 1,
+                                    indent: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       );
