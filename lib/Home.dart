@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String scname = 'Enter source';
+  String scname = 'Enter Source';
   String dsname = 'Enter Destination';
 
   dynamic idFromSecondPage;
@@ -102,12 +102,12 @@ class _HomeState extends State<Home> {
                                             ? 1.1
                                             : 1.4,
                                     style: TextStyle(
-                                      color: scname.contains('Enter source')
+                                      color: scname.contains('Enter Source')
                                           ? Colors.grey
                                           : Colors.black,
                                       fontFamily: 'poppins',
                                       fontWeight:
-                                          scname.contains('Enter source')
+                                          scname.contains('Enter Source')
                                               ? FontWeight.normal
                                               : FontWeight.bold,
                                     ),
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                                   });
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content:
                                           Text('Please choose Source Area'),
                                     ),
