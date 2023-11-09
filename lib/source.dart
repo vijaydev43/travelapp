@@ -39,7 +39,7 @@ class _SourceState extends State<Source> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, {'name': 'Enter Source'});
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios_new,

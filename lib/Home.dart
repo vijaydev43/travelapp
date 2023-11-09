@@ -18,11 +18,12 @@ class _HomeState extends State<Home> {
 
   void receiveDataFromSecondPage(Map data) {
     setState(() {
-      idFromSecondPage = data['id']!;
-      nameFromSecondPage = data['name']!;
+      idFromSecondPage = data['id'];
+      scname = data['name']!;
     });
   }
 
+  String message = "Please choose source area";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,11 +82,8 @@ class _HomeState extends State<Home> {
                                         feldname: 'Enter source',
                                       ),
                                     ));
-                                print(resultt);
+
                                 receiveDataFromSecondPage(resultt);
-                                /*        setState(() {
-                                  scname = scname;
-                                });*/
                               },
                               child: Row(
                                 children: [
@@ -98,11 +96,9 @@ class _HomeState extends State<Home> {
                                     width: 10,
                                   ),
                                   Text(
-                                    '$nameFromSecondPage    $idFromSecondPage',
-
-                                    ///100 -first feld,
+                                    scname,
                                     textScaleFactor:
-                                        scname.contains('Enter source')
+                                        scname.contains('Enter Source')
                                             ? 1.1
                                             : 1.4,
                                     style: TextStyle(
@@ -124,18 +120,27 @@ class _HomeState extends State<Home> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                dsname = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Destination(
-                                        feldname: 'Enter destination city',
-                                        number: idFromSecondPage,
-                                      ),
-                                    ));
+                                if (idFromSecondPage != null) {
+                                  dsname = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Destination(
+                                          feldname: 'Enter destination city',
+                                          number: idFromSecondPage,
+                                        ),
+                                      ));
 
-                                setState(() {
-                                  dsname = dsname;
-                                });
+                                  setState(() {
+                                    dsname = dsname;
+                                  });
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text('Please choose Source Area'),
+                                    ),
+                                  );
+                                }
                               },
                               child: Row(
                                 children: [
@@ -185,8 +190,9 @@ class _HomeState extends State<Home> {
                                   'SELECT DATE',
                                   textScaleFactor: 1.1,
                                   style: TextStyle(
-                                      color: Colors.grey,
-                                      fontFamily: 'poppinr'),
+                                    color: Colors.grey,
+                                    fontFamily: 'poppinr',
+                                  ),
                                 ),
                                 const Spacer(),
                                 const Text(

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'api.dart';
+import 'application.dart';
 
 // ignore: must_be_immutable
 class Destination extends StatefulWidget {
@@ -16,7 +16,7 @@ class Destination extends StatefulWidget {
 }
 
 class _DestinationState extends State<Destination> {
-  late Future<List<api>> kpnn;
+  late Future<List<application>> kpnn;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _DestinationState extends State<Destination> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, 'Enter Destination');
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios_new,
@@ -132,10 +132,11 @@ class _DestinationState extends State<Destination> {
   }
 }
 
-Future<List<api>> getDest(int id) async {
+Future<List<application>> getDest(int id) async {
   print(id);
   var respoce = await http.get(
-      Uri.parse('http://testapi.kpntravels.in/v1/places/destinations/$id'),
+      Uri.parse(
+          'http://testapi.kpntravels.in/v1/places/destinations?sourceId=$id'),
       headers: {
         'accept': 'application/json',
         'Authorization':
@@ -146,7 +147,43 @@ Future<List<api>> getDest(int id) async {
 
   List<Map> gtda = List<Map>.from(dta['data']);
 
-  List<api> fdta = gtda.map((e) => api.fromjson(e)).toList();
+  List<application> fdta = gtda.map((e) => application.fromjson(e)).toList();
 
   return fdta;
 }
+
+/*
+Future<List<application>> getDest(int id) async {
+  print(id);
+  var response = await http.get(
+    Uri.parse(
+        'http://testapi.kpntravels.in/v1/places/destinations?sourceId=$id'),
+    headers: {
+      'accept': 'application/json',
+      'Authorization':
+          'Basic cEc0SENIeUtUZ1U2d21VVjp5YXZ6REFDeWhYUGQ3d3IyTUxuNlZKQzkzV0wyWXpRag==',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    print(response.body);
+    try {
+      Map data = jsonDecode(response.body);
+
+      if (data.containsKey('data')) {
+        List<Map> responseData = List<Map>.from(data['data']);
+        List<application> fdta =
+            responseData.map((e) => application.fromjson(e)).toList();
+        return fdta;
+      } else {
+        throw Exception('Response does not contain the "data" key');
+      }
+    } catch (e) {
+      throw Exception('Error decoding JSON response: $e');
+    }
+  } else {
+    throw Exception(
+        'HTTP request failed with status code ${response.statusCode}');
+  }
+}
+*/
