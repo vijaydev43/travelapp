@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Container(
         color: const Color(0xff054CDC),
-        padding: const EdgeInsets.symmetric(vertical: 40),
+        padding: const EdgeInsets.only(top: 35, bottom: 50),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -54,12 +54,12 @@ class _HomeState extends State<Home> {
                     textScaleFactor: 2.1,
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Container(
                     padding: const EdgeInsets.only(
-                      left: 15,
-                      right: 15,
+                      left: 10,
+                      right: 10,
                       top: 30,
                       bottom: 20,
                     ),
@@ -181,7 +181,7 @@ class _HomeState extends State<Home> {
                                 Image.asset(
                                   'assets/images/calendar.png',
                                   width:
-                                      MediaQuery.of(context).size.width * 0.08,
+                                      MediaQuery.of(context).size.width * 0.07,
                                 ),
                                 const SizedBox(
                                   width: 10,
@@ -199,7 +199,7 @@ class _HomeState extends State<Home> {
                                   'TODAY',
                                   style: TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -210,7 +210,7 @@ class _HomeState extends State<Home> {
                                   'TOMORROW',
                                   style: TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -225,8 +225,9 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
-                                shape: const RoundedRectangleBorder(),
-                                fixedSize: const Size(400, 60),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(7)),
+                                fixedSize: const Size(400, 55),
                                 backgroundColor: const Color(0xff054CDC),
                               ),
                               child: const Text(
@@ -238,8 +239,8 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                         Positioned(
-                          left: 310,
-                          top: 27,
+                          left: 280,
+                          top: 30,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -261,7 +262,7 @@ class _HomeState extends State<Home> {
                               ),
                               child: const Icon(
                                 Icons.swap_vertical_circle,
-                                size: 45,
+                                size: 30,
                                 grade: 20,
                               ),
                             ),
