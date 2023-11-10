@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:travelapp/destination.dart';
-import 'package:travelapp/source.dart';
+import 'package:travelapp/api.dart';
+
+import 'package:travelapp/places.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -76,12 +77,12 @@ class _HomeState extends State<Home> {
                             GestureDetector(
                               onTap: () async {
                                 final resultt = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Source(
-                                        feldname: 'Enter source',
-                                      ),
-                                    ));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        places(placee: placeType.source),
+                                  ),
+                                );
 
                                 receiveDataFromSecondPage(resultt);
                               },
@@ -95,7 +96,7 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width / 1.4,
                                     child: Text(
@@ -128,10 +129,9 @@ class _HomeState extends State<Home> {
                                   dsname = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Destination(
-                                          feldname: 'Enter destination city',
-                                          number: idFromSecondPage,
-                                        ),
+                                        builder: (context) => places(
+                                            placee: placeType.destination,
+                                            id: idFromSecondPage),
                                       ));
 
                                   setState(() {
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width / 1.4,
                                     child: Text(
@@ -247,8 +247,8 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                         Positioned(
-                          left: 280,
-                          top: 30,
+                          left: 290,
+                          top: 25,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -270,8 +270,7 @@ class _HomeState extends State<Home> {
                               ),
                               child: const Icon(
                                 Icons.swap_vertical_circle,
-                                size: 30,
-                                grade: 20,
+                                size: 50,
                               ),
                             ),
                           ),

@@ -8,3 +8,5 @@ class api {
     return api(id: res['id'], name: res['name']);
   }
 }
+
+enum placeType { source, destination }

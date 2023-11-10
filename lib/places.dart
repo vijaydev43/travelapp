@@ -4,21 +4,23 @@ import 'package:http/http.dart' as http;
 import 'api.dart';
 
 // ignore: must_be_immutable
-class Source extends StatefulWidget {
-  late String feldname;
+class places extends StatefulWidget {
+  late placeType placee;
 
-  Source({super.key, required this.feldname});
+  int id;
+
+  places({super.key, required this.placee, this.id = 0});
 
   @override
-  State<Source> createState() => _SourceState();
+  State<places> createState() => _placesState();
 }
 
-class _SourceState extends State<Source> {
+class _placesState extends State<places> {
   late Future<List<api>> kpn;
 
   @override
   void initState() {
-    kpn = getData();
+    kpn = widget.placee == placeType.source ? getData() : getDest(widget.id);
 
     super.initState();
   }
@@ -40,7 +42,11 @@ class _SourceState extends State<Source> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pop(context, {'name': 'Enter Source'});
+                    Navigator.pop(
+                        context,
+                        widget.placee.name.contains('source')
+                            ? {'name': 'Enter Source'}
+                            : 'Enter Destination');
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios_new,
@@ -65,7 +71,7 @@ class _SourceState extends State<Source> {
                       style:
                           const TextStyle(fontSize: 18, fontFamily: 'poppinsm'),
                       decoration: InputDecoration(
-                        hintText: widget.feldname,
+                        hintText: 'Enter  ${widget.placee.name}',
                         focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Colors.white,
@@ -131,10 +137,14 @@ class _SourceState extends State<Source> {
                                     .startsWith(txt.text.toUpperCase()),
                             child: InkWell(
                               onTap: () {
-                                Navigator.pop(context, {
-                                  'id': snapshot.data![index].id,
-                                  'name': snapshot.data![index].name,
-                                });
+                                Navigator.pop(
+                                    context,
+                                    widget.placee.name.contains('source')
+                                        ? {
+                                            'id': snapshot.data![index].id,
+                                            'name': snapshot.data![index].name
+                                          }
+                                        : snapshot.data![index].name);
                               },
                               child: Column(
                                 children: [
@@ -176,6 +186,26 @@ Future<List<api>> getData() async {
   var data = jsonDecode(respoce.body);
 
   List<Map> gtda = List<Map>.from(data['data']);
+
+  List<api> fdta = gtda.map((e) => api.fromjson(e)).toList();
+
+  return fdta;
+}
+
+Future<List<api>> getDest(int id) async {
+  print(id);
+  var respoce = await http.get(
+      Uri.parse(
+          'http://testapi.kpntravels.in/v1/places/destinations?sourceId=$id'),
+      headers: {
+        'accept': 'application/json',
+        'Authorization':
+            'Basic cEc0SENIeUtUZ1U2d21VVjp5YXZ6REFDeWhYUGQ3d3IyTUxuNlZKQzkzV0wyWXpRag=='
+      });
+
+  Map dta = jsonDecode(respoce.body);
+
+  List<Map> gtda = List<Map>.from(dta['data']);
 
   List<api> fdta = gtda.map((e) => api.fromjson(e)).toList();
 
