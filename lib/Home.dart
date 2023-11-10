@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travelapp/api.dart';
-
 import 'package:travelapp/places.dart';
 
 class Home extends StatefulWidget {
@@ -83,7 +82,6 @@ class _HomeState extends State<Home> {
                                         places(placee: placeType.source),
                                   ),
                                 );
-
                                 receiveDataFromSecondPage(resultt);
                               },
                               child: Row(
